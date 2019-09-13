@@ -30,11 +30,20 @@ Run `src/cli.js` and give a CSV file as the first argument
 node src/cli.js sample-data/simple.csv
 ```
 
-Pass in a rules file to validat against the rules
+Since no rules were specified above, the file is only checked to make sure it
+can be parsed correctly. As long as it's a valid CSV file, it will pass
+validation. The CLI will show errors if they exist. Otherwise, it will display
+a success message.
+
+Pass in a rules file to validate against the rules
 
 ```
 node src/cli sample-data/simple.csv sample-rules/simple.json
 ```
+
+Again, the CLI will show parsing errors if they exist. When a rules file is
+specified as it is above, the CLI will also display any validation errors.
+Otherwise, it will display a success message.
 
 ## Tests
 
