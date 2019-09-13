@@ -24,10 +24,32 @@ npm install
 
 ## Usage
 
-Run `index.js` and give a CSV file as the first argument
+Run `src/cli.js` and give a CSV file as the first argument
 
 ```
-node src/index.js data/sample.csv
+node src/cli.js sample-data/simple.csv
+```
+
+## Tests
+
+Run tests via Jest
+
+```
+npm run test
+```
+
+## Lint
+
+Lint all JavaScript files
+
+```
+npm run lint
+```
+
+Automatically fix linting problems if possible
+
+```
+npm run lint:fix
 ```
 
 ## To Do
