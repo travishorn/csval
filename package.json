@@ -2,9 +2,11 @@
   "name": "csval",
   "version": "0.1.0",
   "description": "Validate CSV files",
-  "main": "src/index.js",
+  "main": "src/cli.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest",
+    "lint": "eslint **/*.js",
+    "lint:fix": "eslint --fix **/*.js"
   },
   "author": "Travis Horn <travis@travishorn.com> (https://travishorn.com)",
   "repository": {
@@ -18,5 +20,12 @@
   "license": "MIT",
   "dependencies": {
     "papaparse": "^5.0.2"
+  },
+  "devDependencies": {
+    "eslint": "^6.3.0",
+    "eslint-config-prettier": "^6.3.0",
+    "eslint-plugin-prettier": "^3.1.0",
+    "jest": "^24.9.0",
+    "prettier": "^1.18.2"
   }
 }

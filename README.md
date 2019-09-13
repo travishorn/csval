@@ -32,8 +32,7 @@ node src/index.js data/sample.csv
 
 ## To Do
 
-- Write tests
-- Create a way to pass in rules
+- Create a way to pass in rules file via CLI
 - Add more validation features
 - Keep the validation library and the CLI loosely coupled
 
