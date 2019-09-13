@@ -1,6 +1,6 @@
 # csval
 
-Validate CSV files. Work in progress.
+Check CSV files against a set of validation rules.
 
 ## Installation
 
