@@ -1,0 +1,3 @@
+{
+  "requiredFields": ["name", "age", "salary"]
+}

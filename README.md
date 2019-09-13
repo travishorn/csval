@@ -30,6 +30,12 @@ Run `src/cli.js` and give a CSV file as the first argument
 node src/cli.js sample-data/simple.csv
 ```
 
+Pass in a rules file to validat against the rules
+
+```
+node src/cli sample-data/simple.csv sample-rules/simple.json
+```
+
 ## Tests
 
 Run tests via Jest
@@ -54,9 +60,8 @@ npm run lint:fix
 
 ## To Do
 
-- Create a way to pass in rules file via CLI
 - Add more validation features
-- Keep the validation library and the CLI loosely coupled
+- Write tests for CLI
 
 ## License
 

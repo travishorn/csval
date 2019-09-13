@@ -19,6 +19,7 @@
   "homepage": "https://github.com/travishorn/csval#readme",
   "license": "MIT",
   "dependencies": {
+    "commander": "^3.0.1",
     "papaparse": "^5.0.2"
   },
   "devDependencies": {

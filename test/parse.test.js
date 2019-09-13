@@ -1,5 +1,5 @@
 const parse = require("../src/parse");
-const readFile = require("../src/readFile");
+const readCsv = require("../src/readCsv");
 
 test("Parses a CSV string", async () => {
   const parsed = await parse("name,age\nJohn,30");
@@ -7,7 +7,7 @@ test("Parses a CSV string", async () => {
 });
 
 test("Parses a read file", async () => {
-  const data = await readFile(`${__dirname}/../sample-data/simple.csv`);
+  const data = await readCsv(`${__dirname}/../sample-data/simple.csv`);
   const parsed = await parse(data);
   expect(parsed.errors.length).toBe(0);
 });

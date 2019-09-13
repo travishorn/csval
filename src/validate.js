@@ -1,7 +1,7 @@
 const validate = async (parsed, passedRules) => {
   const rules = Object.assign({}, passedRules);
 
-  if (rules.requiredFields) {
+  if (Array.isArray(rules.requiredFields)) {
     const missingRequiredFields = rules.requiredFields.filter(requiredField => {
       return !parsed.meta.fields.includes(requiredField);
     });
