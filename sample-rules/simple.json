@@ -1,3 +1,12 @@
 {
-  "requiredFields": ["name", "age"]
+  "fields": [
+    {
+      "name": "name",
+      "required": true
+    },
+    {
+      "name": "age",
+      "required": true
+    }
+  ]
 }

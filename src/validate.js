@@ -1,9 +1,9 @@
 const validate = async (parsed, passedRules) => {
   const rules = Object.assign({}, passedRules);
 
-  if (Array.isArray(rules.requiredFields)) {
-    const missingRequiredFields = rules.requiredFields.filter(requiredField => {
-      return !parsed.meta.fields.includes(requiredField);
+  if (Array.isArray(rules.fields)) {
+    const missingRequiredFields = rules.fields.filter(field => {
+      return field.required && !parsed.meta.fields.includes(field.name);
     });
 
     if (missingRequiredFields.length > 0) {
@@ -17,7 +17,7 @@ const validate = async (parsed, passedRules) => {
           acc += "\n - ";
         }
 
-        acc += cur;
+        acc += cur.name;
 
         return acc;
       }, "");
