@@ -17,6 +17,7 @@ const main = async (csvFile, rulesFile) => {
     process.stdout.write("The CSV file meets all validation checks.\n");
   } catch (err) {
     process.stderr.write(`${err}\n`);
+    process.exit(1);
   }
 };
 

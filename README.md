@@ -75,7 +75,6 @@ npm run lint:fix
 ## To Do
 
 - Add more validation features
-- Write tests for CLI
 
 ## License
 
