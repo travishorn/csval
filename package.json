@@ -1,6 +1,6 @@
 {
   "name": "csval",
-  "version": "0.7.0",
+  "version": "0.8.0",
   "description": "Check CSV files against a set of validation rules.",
   "main": "src/cli.js",
   "scripts": {
