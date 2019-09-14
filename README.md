@@ -87,6 +87,7 @@ npm run lint:fix
 ## To Do
 
 - Add more validation features
+- Move validation checks into separate testable files
 
 ## License
 
