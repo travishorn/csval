@@ -7,32 +7,18 @@ Check CSV files against a set of validation rules.
 - Checks that the CSV file is actually valid itself and can be parsed
 - Checks for the presence of required fields
 
-## Installation
-
-Clone the repository.
+## CLI Installation
 
 ```
-git clone https://github.com/travishorn/csval.git
-```
-
-Change into the directory.
-
-```
-cd csval
-```
-
-Install dependencies.
-
-```
-npm install
+npm install -global csval
 ```
 
 ## Usage
 
-Run `src/cli.js` and give a CSV file as the first argument
+Run `csval` and give a CSV file as the first argument
 
 ```
-node src/cli.js sample-data/simple.csv
+csval sample-data/simple.csv
 ```
 
 Since no rules were specified above, the file is only checked to make sure it
@@ -43,12 +29,32 @@ a success message.
 Pass in a rules file to validate against the rules
 
 ```
-node src/cli sample-data/simple.csv sample-rules/simple.json
+csval sample-data/simple.csv sample-rules/simple.json
 ```
 
 Again, the CLI will show parsing errors if they exist. When a rules file is
 specified as it is above, the CLI will also display any validation errors.
 Otherwise, it will display a success message.
+
+## Develop
+
+Clone the repository
+
+```
+git clone https://github.com/travishorn/csval.git
+```
+
+Change into the directory
+
+```
+cd csval
+```
+
+Install dependencies
+
+```
+npm install
+```
 
 ## Tests
 
@@ -56,6 +62,12 @@ Run tests via Jest
 
 ```
 npm run test
+```
+
+View test coverage
+
+```
+npm run test:coverage
 ```
 
 ## Lint
