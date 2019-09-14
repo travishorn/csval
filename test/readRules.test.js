@@ -10,3 +10,9 @@ test("Throws an error on non-existent rules file", async () => {
     readRules(`${__dirname}/../sample-rules/non-existent.json`)
   ).rejects.toThrow("Cannot find the specified rules file.");
 });
+
+test("Throws an error when passed a non-string file path", async () => {
+  await expect(readRules(false)).rejects.toThrow(
+    'The "path" argument must be one of type string, Buffer, or URL. Received type boolean'
+  );
+});
