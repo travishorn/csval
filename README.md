@@ -6,11 +6,12 @@ Check CSV files against a set of validation rules.
 
 - Checks that the CSV file is actually valid itself and can be parsed
 - Checks for the presence of required fields
+- More on the way...
 
 ## CLI Installation
 
 ```
-npm install -global csval
+npm install --global csval
 ```
 
 ## Usage
