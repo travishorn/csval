@@ -32,6 +32,11 @@ test("Validates a passed in CSV file with passed in rules file", async () => {
   expect(result.stdout).toBe("The CSV file meets all validation checks.\n");
 });
 
+test("Gives an error on missing file path argument", async () => {
+  let result = await cli("");
+  expect(result.stderr).toBe("Error: You must supply a path to a CSV file.\n");
+});
+
 test("Gives an error on parse error", async () => {
   let result = await cli("./sample-data/not-parseable.csv");
   expect(result.stderr).toBe(

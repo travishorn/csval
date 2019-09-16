@@ -15,7 +15,9 @@ const main = async (csvFile, rulesFile) => {
     const csv = await readCsv(csvFile);
     const rules = rulesFile ? await readRules(rulesFile) : {};
     const parsed = await parseCsv(csv);
+
     await validate(parsed, rules);
+
     process.stdout.write("The CSV file meets all validation checks.\n");
   } catch (err) {
     process.stderr.write(`${err}\n`);
@@ -26,3 +28,8 @@ const main = async (csvFile, rulesFile) => {
 program.arguments("<csvFile> [rules]").action(main);
 
 program.parse(process.argv);
+
+if (!process.argv.slice(2).length) {
+  process.stderr.write("Error: You must supply a path to a CSV file.\n");
+  process.exit(1);
+}
