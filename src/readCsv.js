@@ -1,8 +1,11 @@
-const fs = require("fs").promises;
+const { promisify } = require("util");
+const { readFile } = require("fs");
 
-const readFile = async filePath => {
+const pReadFile = promisify(readFile);
+
+const readCsv = async filePath => {
   try {
-    const data = await fs.readFile(filePath);
+    const data = await pReadFile(filePath);
     return data.toString();
   } catch (err) {
     if (err.code === "ENOENT")
@@ -11,4 +14,4 @@ const readFile = async filePath => {
   }
 };
 
-module.exports = readFile;
+module.exports = readCsv;

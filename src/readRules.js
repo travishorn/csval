@@ -1,8 +1,11 @@
-const fs = require("fs").promises;
+const { promisify } = require("util");
+const { readFile } = require("fs");
+
+const pReadFile = promisify(readFile);
 
 const readRules = async filePath => {
   try {
-    const data = await fs.readFile(filePath);
+    const data = await pReadFile(filePath);
     return JSON.parse(data.toString());
   } catch (err) {
     if (err.code === "ENOENT")
