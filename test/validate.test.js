@@ -1,20 +1,20 @@
-const parse = require("../src/parse");
+const parseCsv = require("../src/parseCsv");
 const validate = require("../src/validate");
 
 test("Validates a valid CSV string with no rules", async () => {
-  const parsed = await parse("name,age\nJohn,30");
+  const parsed = await parseCsv("name,age\nJohn,30");
   const valid = await validate(parsed);
   expect(valid).toBe(true);
 });
 
 test("Validates a valid CSV string with empty rules", async () => {
-  const parsed = await parse("name,age\nJohn,30");
+  const parsed = await parseCsv("name,age\nJohn,30");
   const valid = await validate(parsed, {});
   expect(valid).toBe(true);
 });
 
 test("Validates a valid CSV string with all required headers", async () => {
-  const parsed = await parse("name,age\nJohn,30");
+  const parsed = await parseCsv("name,age\nJohn,30");
 
   const rules = {
     fields: [
@@ -34,7 +34,7 @@ test("Validates a valid CSV string with all required headers", async () => {
 });
 
 test("Validates a valid CSV string with more than just required fields", async () => {
-  const parsed = await parse("name,age\nJohn,30");
+  const parsed = await parseCsv("name,age\nJohn,30");
 
   const rules = {
     fields: [
@@ -50,7 +50,7 @@ test("Validates a valid CSV string with more than just required fields", async (
 });
 
 test("Throws an error when a required field is missing from the header row", async () => {
-  const parsed = await parse("name,age\nJohn,30");
+  const parsed = await parseCsv("name,age\nJohn,30");
 
   const rules = {
     fields: [
@@ -67,7 +67,7 @@ test("Throws an error when a required field is missing from the header row", asy
 });
 
 test("Throws an error when more than one required field is missing from the header row", async () => {
-  const parsed = await parse("name,age\nJohn,30");
+  const parsed = await parseCsv("name,age\nJohn,30");
 
   const rules = {
     fields: [
@@ -88,7 +88,7 @@ test("Throws an error when more than one required field is missing from the head
 });
 
 test("Doesn't throw on missing fields where required is set to false", async () => {
-  const parsed = await parse("name,age\nJohn,30");
+  const parsed = await parseCsv("name,age\nJohn,30");
 
   const rules = {
     fields: [
@@ -108,7 +108,7 @@ test("Doesn't throw on missing fields where required is set to false", async () 
 });
 
 test("Doesn't throw on missing fields where required isn't set", async () => {
-  const parsed = await parse("name,age\nJohn,30");
+  const parsed = await parseCsv("name,age\nJohn,30");
 
   const rules = {
     fields: [
