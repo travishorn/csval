@@ -1,29 +1,25 @@
+const requiredFields = require("./validators/requiredFields");
+const types = require("./validators/types");
+
 const validate = async (parsed, passedRules) => {
   const rules = Object.assign({}, passedRules);
+  const validators = [requiredFields, types];
+  const errors = [];
 
-  if (Array.isArray(rules.fields)) {
-    const missingRequiredFields = rules.fields.filter(field => {
-      return field.required && !parsed.meta.fields.includes(field.name);
-    });
-
-    if (missingRequiredFields.length > 0) {
-      const errorText = missingRequiredFields.reduce((acc, cur, i) => {
-        if (i === 0) {
-          acc =
-            missingRequiredFields.length > 1
-              ? "Required fields missing from header row:\n - "
-              : "Required field missing from header row: ";
-        } else {
-          acc += "\n - ";
-        }
-
-        acc += cur.name;
-
-        return acc;
-      }, "");
-
-      throw new Error(errorText);
+  validators.forEach(validator => {
+    try {
+      validator(parsed, rules);
+    } catch (err) {
+      errors.push(err);
     }
+  });
+
+  if (errors.length > 0) {
+    const errorText = errors.reduce((acc, cur) => {
+      return acc + cur.message;
+    }, "");
+
+    throw new Error(errorText);
   }
 
   return true;
