@@ -6,7 +6,8 @@
     },
     {
       "name": "age",
-      "required": true
+      "required": true,
+      "type": "number"
     }
   ]
 }

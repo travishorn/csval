@@ -6,6 +6,7 @@ Check CSV files against a set of validation rules.
 
 - Checks that the CSV file is actually valid itself and can be parsed
 - Checks for the presence of required fields
+- Checks for mismatching types (number vs. non-number only)
 - More on the way...
 
 ## CLI Installation
@@ -84,11 +85,6 @@ Automatically fix linting problems if possible
 ```
 npm run lint:fix
 ```
-
-## To Do
-
-- Add more validation features
-- Move validation checks into separate testable files
 
 ## License
 
