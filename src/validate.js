@@ -15,8 +15,10 @@ const validate = async (parsed, passedRules) => {
   });
 
   if (errors.length > 0) {
-    const errorText = errors.reduce((acc, cur) => {
-      return acc + cur.message;
+    const errorText = errors.reduce((acc, cur, i) => {
+      if (i !== 0) acc += "\n";
+      acc += cur.message;
+      return acc;
     }, "");
 
     throw new Error(errorText);
