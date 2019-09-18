@@ -23,7 +23,7 @@ npm install --global csval
 Run `csval` and give a CSV file as the first argument
 
 ```
-csval sample-data/simple.csv
+csval mydata.csv
 ```
 
 Since no rules were specified above, the file is only checked to make sure it
@@ -34,7 +34,7 @@ a success message.
 Pass in a rules file to validate against the rules
 
 ```
-csval sample-data/simple.csv sample-rules/simple.json
+csval mydata.csv myrules.json
 ```
 
 Again, the CLI will show parsing errors if they exist. When a rules file is
