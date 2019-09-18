@@ -1,6 +1,6 @@
 const readCsv = require("../src/readCsv");
 
-test("Reads a file", async () => {
+test("Reads a CSV file", async () => {
   const data = await readCsv(`${__dirname}/../sample-data/simple.csv`);
   expect(data).toBe("name,age\nJohn,30");
 });

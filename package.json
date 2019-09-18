@@ -2,7 +2,7 @@
   "name": "csval",
   "version": "0.16.0",
   "description": "Check CSV files against a set of validation rules.",
-  "main": "src/cli.js",
+  "main": "src/index.js",
   "scripts": {
     "test": "jest",
     "test:coverage": "jest --coverage",

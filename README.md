@@ -2,12 +2,15 @@
 
 Check CSV files against a set of validation rules.
 
-## Features
+## Validation Checks
 
-- Checks that the CSV file is actually valid itself and can be parsed
-- Checks for the presence of required fields
-- Checks for mismatching types (number vs. non-number only)
-- More on the way...
+- CSV file is actually valid itself and can be parsed
+- Presence of required fields
+- Mismatching types. For example, number vs string
+- Minimum and maxiumum lengths
+- Number and date ranges
+- Regex pattern matching
+- Much more. Check the [JSON Schema reference](https://json-schema.org/understanding-json-schema/reference/index.html) for more information
 
 ## CLI Installation
 
@@ -37,6 +40,119 @@ csval sample-data/simple.csv sample-rules/simple.json
 Again, the CLI will show parsing errors if they exist. When a rules file is
 specified as it is above, the CLI will also display any validation errors.
 Otherwise, it will display a success message.
+
+### Rules file
+
+Rules files should follow the [JSON
+Schema](https://json-schema.org/understanding-json-schema/reference/index.html)
+format. It describes what you should expect in each row. Here's an example.
+
+```
+{
+  "properties": {
+    "name": {
+      "type": "string"
+    }
+  },
+  "required": ["name"]
+}
+```
+
+The rules above say that each row is required to have a name, which is a string.
+This CSV file would pass.
+
+```
+name,age,salary
+John,30,100000
+Jane,50,150000
+```
+
+This CSV file would fail.
+
+```
+age,salary
+30,100000
+50,150000
+```
+
+Here's another example rules file.
+
+```
+{
+  properties: {
+    "age": {
+      "type": "number",
+      "minimum": 0
+    }
+  }
+}
+```
+
+This CSV file would pass.
+
+```
+name,age
+John,30
+Jane,50
+```
+
+But this one would fail.
+
+```
+name,age
+John,30
+Jane,-10
+```
+
+## Programmatic API
+
+Install the library
+
+```
+npm install csval
+```
+
+Use it in your project like so
+
+```
+const csval = require("csval");
+
+const main = async () => {
+  const csvString= "name,age\nJohn,30";
+
+  const rules = {
+    properties: {
+      name: {
+        type: "string"
+      }
+    }
+  };
+
+  const parsed = await csval.parseCsv(csvString);
+  const valid = await csval.validate(parsed, rules);
+
+  // csval.validate will either throw an error or valid will be true
+};
+
+main();
+```
+
+You can also read CSV data and rules from files.
+
+```
+const csval = require("csval");
+
+const main = async () => {
+  const csvString= await readCsv("path/to/file.csv");
+  const rules = await readRules("path/to/rules.json");
+  const parsed = await csval.parseCsv(csvString);
+  const valid = await csval.validate(parsed, rules);
+
+  // csval.validate will either throw an error or valid will be true
+};
+
+main();
+```
 
 ## Develop
 
