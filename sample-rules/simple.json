@@ -1,13 +1,14 @@
 {
-  "fields": [
-    {
-      "name": "name",
-      "required": true
+  "properties": {
+    "name": {
+      "type": "string"
     },
-    {
-      "name": "age",
-      "required": true,
+    "age": {
       "type": "number"
     }
+  },
+  "required": [
+    "name",
+    "age"
   ]
 }

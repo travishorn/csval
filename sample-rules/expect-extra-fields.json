@@ -1,16 +1,8 @@
 {
-  "fields": [
-    {
-      "name": "name",
-      "required": true
-    },
-    {
-      "name": "age",
-      "required": true
-    },
-    {
-      "name": "salary",
-      "required": true
-    }
+  "properties": {
+    "salary": "number"
+  },
+  "required": [
+    "salary"
   ]
 }

@@ -1,28 +1,19 @@
-const requiredFields = require("./validators/requiredFields");
-const types = require("./validators/types");
+const Enjoi = require("enjoi");
+const Joi = require("@hapi/joi");
 
 const validate = async (parsed, passedRules) => {
-  const rules = Object.assign({}, passedRules);
-  const validators = [requiredFields, types];
   const errors = [];
+  const rules = Object.assign({ type: "object" }, passedRules);
+  const schema = Enjoi.schema(rules).unknown();
 
-  validators.forEach(validator => {
-    try {
-      validator(parsed, rules);
-    } catch (err) {
-      errors.push(err);
-    }
+  parsed.data.forEach((row, i) => {
+    Joi.validate(row, schema, err => {
+      if (err) errors.push(`Row ${i + 2}: ${err.message}`);
+    });
   });
 
-  if (errors.length > 0) {
-    const errorText = errors.reduce((acc, cur, i) => {
-      if (i !== 0) acc += "\n";
-      acc += cur.message;
-      return acc;
-    }, "");
-
-    throw new Error(errorText);
-  }
+  if (errors.length === 1) throw new Error(errors[0]);
+  if (errors.length > 0) throw new Error(`\n${errors.join("\n")}`);
 
   return true;
 };
