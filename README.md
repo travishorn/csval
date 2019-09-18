@@ -49,7 +49,7 @@ format. It describes what you should expect in each row. Here's an example.
 
 ```json
 {
-  "type": "object", // This line is implied and can be left out
+  "type": "object", /* This line is implied and can be left out */
   "properties": {
     "salary": {
       "type": "number"
