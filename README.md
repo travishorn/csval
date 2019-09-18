@@ -49,7 +49,7 @@ format. It describes what you should expect in each row. Here's an example.
 
 ```json
 {
-  "type": "object", /* This line is implied and can be left out */
+  "type": "object",
   "properties": {
     "salary": {
       "type": "number"
@@ -57,6 +57,9 @@ format. It describes what you should expect in each row. Here's an example.
   }
 }
 ```
+
+Note: The `"type": "object"` line above is implied and can be left out if
+desired.
 
 The rules above say that the "salary" field on each row must be a number. This
 CSV file would pass.
