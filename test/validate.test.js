@@ -27,3 +27,21 @@ test("Throws an error when validation fails", async () => {
 
   await expect(validate(parsed, rules)).rejects.toThrow();
 });
+
+test("Throws an error when multiple validation checks fail", async () => {
+  const parsed = await parseCsv("name,age\nJohn,30\nJane,abc");
+
+  const rules = {
+    properties: {
+      age: {
+        type: "number"
+      },
+      salary: {
+        type: "number"
+      }
+    },
+    required: ["salary"]
+  };
+
+  await expect(validate(parsed, rules)).rejects.toThrow();
+});
