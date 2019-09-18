@@ -47,39 +47,39 @@ Rules files should follow the [JSON
 Schema](https://json-schema.org/understanding-json-schema/reference/index.html)
 format. It describes what you should expect in each row. Here's an example.
 
-```
+```json
 {
+  "type": "object", // This line is implied and can be left out
   "properties": {
-    "name": {
-      "type": "string"
+    "salary": {
+      "type": "number"
     }
-  },
-  "required": ["name"]
+  }
 }
 ```
 
-The rules above say that each row is required to have a name, which is a string.
-This CSV file would pass.
+The rules above say that the "salary" field on each row must be a number. This
+CSV file would pass.
 
 ```
-name,age,salary
-John,30,100000
-Jane,50,150000
+name,salary
+John,100000
+Jane,150000
 ```
 
 This CSV file would fail.
 
 ```
-age,salary
-30,100000
-50,150000
+name,salary
+John,100000
+Jane,idk
 ```
 
 Here's another example rules file.
 
-```
+```json
 {
-  properties: {
+  "properties": {
     "age": {
       "type": "number",
       "minimum": 0
@@ -104,6 +104,39 @@ John,30
 Jane,-10
 ```
 
+You can require certain fields, as well. Consider this rules file.
+
+```json
+{
+  "properties": {
+    "age": {
+      "type": "number"
+    }
+  },
+  "required": ["age"]
+}
+```
+
+This CSV file would pass.
+
+```
+name,age,salary
+John,30,100000
+Jane,50,150000
+```
+
+This one would fail.
+
+```
+name,salary
+John,100000
+Jane,150000
+```
+
+There are many other possible rules. See the [JSON
+Schema](https://json-schema.org/understanding-json-schema/reference/index.html)
+for more information.
+
 ## Programmatic API
 
 Install the library
@@ -114,7 +147,7 @@ npm install csval
 
 Use it in your project like so
 
-```
+```javascript
 const csval = require("csval");
 
 const main = async () => {
@@ -139,7 +172,7 @@ main();
 
 You can also read CSV data and rules from files.
 
-```
+```javascript
 const csval = require("csval");
 
 const main = async () => {
