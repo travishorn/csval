@@ -38,18 +38,10 @@
       "pattern": "^([1-9]|1[0-2])\\/([1-9]|[12]\\d|3[01])\\/(19|20)\\d{2}$"
     },
     "Active": {
-      "type": "string",
-      "enum": [
-        "No",
-        "Yes"
-      ]
+      "type": "boolean"
     },
     "Administrative": {
-      "type": "string",
-      "enum": [
-        "No",
-        "Yes"
-      ]
+      "type": "boolean"
     },
     "Department": {
       "type": "string",
