@@ -11,7 +11,9 @@ Check CSV files against a set of validation rules.
 - Number ranges
 - Values from a fixed set of options
 - Regex pattern matching
-- Much more. Check the [JSON Schema reference](https://json-schema.org/understanding-json-schema/reference/index.html) for more information
+- Much more. Check the [JSON Schema
+  reference](https://json-schema.org/understanding-json-schema/reference/index.html)
+  for more information
 
 ## CLI Installation
 
