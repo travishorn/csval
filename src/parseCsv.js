@@ -1,7 +1,7 @@
 const { parse } = require("papaparse");
 
 const parseCsv = async data => {
-  const parsed = parse(data, { header: true });
+  const parsed = parse(data, { header: true, skipEmptyLines: true });
 
   if (parsed.errors.length > 0) {
     const errorText = parsed.errors.reduce((acc, cur, i) => {
