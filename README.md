@@ -8,7 +8,8 @@ Check CSV files against a set of validation rules.
 - Presence of required fields
 - Mismatching types. For example, number vs string
 - Minimum and maxiumum lengths
-- Number and date ranges
+- Number ranges
+- Values from a fixed set of options
 - Regex pattern matching
 - Much more. Check the [JSON Schema reference](https://json-schema.org/understanding-json-schema/reference/index.html) for more information
 
