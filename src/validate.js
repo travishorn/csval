@@ -7,8 +7,12 @@ const validate = async (parsed, passedRules) => {
   const schema = Enjoi.schema(rules).unknown();
 
   parsed.data.forEach((row, i) => {
-    Joi.validate(row, schema, err => {
-      if (err) errors.push(`Row ${i + 2}: ${err.message}`);
+    Joi.validate(row, schema, { abortEarly: false }, err => {
+      if (err) {
+        err.details.forEach(errorDetail => {
+          errors.push(`Row ${i + 2}: ${errorDetail.message}`);
+        });
+      }
     });
   });
 
