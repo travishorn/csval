@@ -37,5 +37,23 @@
   },
   "files": [
     "src/"
+  ],
+  "keywords": [
+    "cli",
+    "comma",
+    "command",
+    "csv",
+    "data",
+    "delimited",
+    "file",
+    "joi",
+    "json",
+    "json-schema",
+    "parse",
+    "parser",
+    "parsing",
+    "schema",
+    "valid",
+    "validation"
   ]
 }
