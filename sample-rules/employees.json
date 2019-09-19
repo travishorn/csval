@@ -1,0 +1,80 @@
+{
+  "properties": {
+    "Employee ID Number": {
+      "type": "string",
+      "pattern": "^100\\d{6}$"
+    },
+    "Last Name": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 30
+    },
+    "First Name": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 30
+    },
+    "Ethnicity": {
+      "type": "string",
+      "enum": [
+        "Asian",
+        "Black",
+        "Hispanic",
+        "Multi-Racial",
+        "Native Amer/Eskimo",
+        "Native Hawaiian or Other Pacific Islander",
+        "White"
+      ]
+    },
+    "Gender": {
+      "type": "string",
+      "enum": [
+        "F",
+        "M"
+      ]
+    },
+    "Date of Birth": {
+      "type": "string",
+      "pattern": "^([1-9]|1[0-2])\\/([1-9]|[12]\\d|3[01])\\/(19|20)\\d{2}$"
+    },
+    "Active": {
+      "type": "string",
+      "enum": [
+        "No",
+        "Yes"
+      ]
+    },
+    "Administrative": {
+      "type": "string",
+      "enum": [
+        "No",
+        "Yes"
+      ]
+    },
+    "Department": {
+      "type": "string",
+      "enum": [
+        "Human Resources",
+        "Manufacturing",
+        "Packaging",
+        "Research & Development"
+      ]
+    },
+    "Location": {
+      "type": "string",
+      "maxLength": 20
+    }
+  },
+  "required": [
+    "Employee ID Number",
+    "Last Name",
+    "First Name",
+    "Ethnicity",
+    "Gender",
+    "Date of Birth",
+    "Active",
+    "Administrative",
+    "Department",
+    "Location"
+  ]
+}
