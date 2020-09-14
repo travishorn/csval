@@ -13,6 +13,6 @@ test("Throws an error on non-existent file", async () => {
 
 test("Throws an error when passed a non-string file path", async () => {
   await expect(readCsv(false)).rejects.toThrow(
-    'The "path" argument must be one of type string, Buffer, or URL. Received type boolean'
+    'The "path" argument must be of type string or an instance of Buffer or URL. Received type boolean (false)'
   );
 });

@@ -69,3 +69,24 @@ test("Throws an error when multiple checks fail on the same row", async () => {
     'Row 2: "age" must be larger than or equal to 0\nRow 2: "salary" must be a number'
   );
 });
+
+test("Throws an error extra rows are specified an additionalProperties is set to false", async () => {
+  const parsed = await parseCsv("name,age,salary\nJohn,10,5000");
+
+  const rules = {
+    properties: {
+      age: {
+        type: "number",
+        minimum: 0
+      },
+      salary: {
+        type: "number"
+      }
+    },
+    additionalProperties: false
+  };
+
+  await expect(validate(parsed, rules)).rejects.toThrow(
+    'Row 2: "name" is not allowed'
+  );
+});

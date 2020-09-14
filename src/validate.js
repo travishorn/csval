@@ -4,7 +4,7 @@ const Joi = require("@hapi/joi");
 const validate = async (parsed, passedRules) => {
   const errors = [];
   const rules = Object.assign({ type: "object" }, passedRules);
-  const schema = Enjoi.schema(rules).unknown();
+  const schema = Enjoi.schema(rules).unknown(rules.additionalProperties);
 
   parsed.data.forEach((row, i) => {
     Joi.validate(row, schema, { abortEarly: false }, err => {
