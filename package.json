@@ -23,9 +23,9 @@
     "csval": "src/cli.js"
   },
   "dependencies": {
-    "@hapi/joi": "^14.5.0",
+    "@hapi/joi": "^17.1.1",
     "commander": "^3.0.1",
-    "enjoi": "^6.0.0",
+    "enjoi": "^9.0.1",
     "papaparse": "^5.0.2"
   },
   "devDependencies": {
