@@ -1,9 +1,9 @@
-const { promisify } = require("util");
-const { readFile } = require("fs");
+import { promisify } from "node:util";
+import { readFile } from "node:fs";
 
 const pReadFile = promisify(readFile);
 
-const readCsv = async filePath => {
+const readCsv = async (filePath) => {
   try {
     const data = await pReadFile(filePath);
     return data.toString();
@@ -14,4 +14,4 @@ const readCsv = async filePath => {
   }
 };
 
-module.exports = readCsv;
+export { readCsv };

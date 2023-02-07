@@ -1,11 +1,8 @@
-const { promisify } = require("util");
-const { readFile } = require("fs");
+import { readFile } from "fs/promises";
 
-const pReadFile = promisify(readFile);
-
-const readRules = async filePath => {
+const readRules = async (filePath) => {
   try {
-    const data = await pReadFile(filePath);
+    const data = await readFile(filePath);
     return JSON.parse(data.toString());
   } catch (err) {
     if (err.code === "ENOENT")
@@ -14,4 +11,4 @@ const readRules = async filePath => {
   }
 };
 
-module.exports = readRules;
+export { readRules };

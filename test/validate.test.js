@@ -1,92 +1,131 @@
-const parseCsv = require("../src/parseCsv");
-const validate = require("../src/validate");
+import { expect, use } from "chai";
+import chaiAsPromised from "chai-as-promised";
+import { parseCsv } from "../src/parseCsv.js";
+import { validate } from "../src/validate.js";
 
-test("Validates a valid CSV string with no rules", async () => {
-  const parsed = await parseCsv("name,age\nJohn,30");
-  const valid = await validate(parsed);
-  expect(valid).toBe(true);
-});
+use(chaiAsPromised);
 
-test("Validates a valid CSV string with empty rules", async () => {
-  const parsed = await parseCsv("name,age\nJohn,30");
-  const valid = await validate(parsed, {});
-  expect(valid).toBe(true);
-});
+describe("validate", () => {
+  it("validates a valid CSV string with no rules", async () => {
+    const parsed = await parseCsv("name,age\nJohn,30");
+    const valid = await validate(parsed);
+    expect(valid).to.equal(true);
+  });
 
-test("Throws an error when validation fails", async () => {
-  const parsed = await parseCsv("name,age\nJohn,30");
+  it("validates a valid CSV string with empty rules", async () => {
+    const parsed = await parseCsv("name,age\nJohn,30");
+    const valid = await validate(parsed, {});
+    expect(valid).to.equal(true);
+  });
 
-  const rules = {
-    properties: {
-      salary: {
-        type: "number"
-      }
-    },
-    required: ["salary"]
-  };
+  it("validates a valid CSV string with rules", async () => {
+    const parsed = await parseCsv("name,age\nJohn,30");
 
-  await expect(validate(parsed, rules)).rejects.toThrow(
-    'Row 2: "salary" is required'
-  );
-});
-
-test("Throws an error when validation fails on multiple rows", async () => {
-  const parsed = await parseCsv("name,age\nJohn,30\nJane,abc");
-
-  const rules = {
-    properties: {
-      age: {
-        type: "number"
+    const rules = {
+      properties: {
+        age: {
+          type: "number",
+        },
       },
-      salary: {
-        type: "number"
-      }
-    },
-    required: ["salary"]
-  };
+      required: ["age"],
+    };
 
-  await expect(validate(parsed, rules)).rejects.toThrow(
-    'Row 2: "salary" is required\nRow 3: "age" must be a number\nRow 3: "salary" is required'
-  );
-});
+    const valid = await validate(parsed, rules);
+    expect(valid).to.equal(true);
+  });
 
-test("Throws an error when multiple checks fail on the same row", async () => {
-  const parsed = await parseCsv("name,age,salary\nJohn,-10,abc");
+  it('validates rules with the optional type:"object" property', async () => {
+    const parsed = await parseCsv("name,age\nJohn,30");
 
-  const rules = {
-    properties: {
-      age: {
-        type: "number",
-        minimum: 0
+    const rules = {
+      type: "object",
+      properties: {
+        age: {
+          type: "number",
+        },
       },
-      salary: {
-        type: "number"
-      }
-    }
-  };
+      required: ["age"],
+    };
 
-  await expect(validate(parsed, rules)).rejects.toThrow(
-    'Row 2: "age" must be larger than or equal to 0\nRow 2: "salary" must be a number'
-  );
-});
+    const valid = await validate(parsed, rules);
+    expect(valid).to.equal(true);
+  });
 
-test("Throws an error extra rows are specified an additionalProperties is set to false", async () => {
-  const parsed = await parseCsv("name,age,salary\nJohn,10,5000");
+  it("throws an error when validation fails", async () => {
+    const parsed = await parseCsv("name,age\nJohn,30");
 
-  const rules = {
-    properties: {
-      age: {
-        type: "number",
-        minimum: 0
+    const rules = {
+      properties: {
+        salary: {
+          type: "number",
+        },
       },
-      salary: {
-        type: "number"
-      }
-    },
-    additionalProperties: false
-  };
+      required: ["salary"],
+    };
 
-  await expect(validate(parsed, rules)).rejects.toThrow(
-    'Row 2: "name" is not allowed'
-  );
+    await expect(validate(parsed, rules)).to.be.rejectedWith(
+      "Row 2: must have required property 'salary'"
+    );
+  });
+
+  it("throws an error when validation fails on multiple rows", async () => {
+    const parsed = await parseCsv("name,age\nJohn,30\nJane,abc");
+
+    const rules = {
+      properties: {
+        age: {
+          type: "number",
+        },
+        salary: {
+          type: "number",
+        },
+      },
+      required: ["salary"],
+    };
+
+    await expect(validate(parsed, rules)).to.be.rejectedWith(
+      "Row 2: must have required property 'salary'\nRow 3: must have required property 'salary'\nRow 3: 'age' must be number"
+    );
+  });
+
+  it("throws an error when multiple checks fail on the same row", async () => {
+    const parsed = await parseCsv("name,age,salary\nJohn,-10,abc");
+
+    const rules = {
+      properties: {
+        age: {
+          type: "number",
+          minimum: 0,
+        },
+        salary: {
+          type: "number",
+        },
+      },
+    };
+
+    await expect(validate(parsed, rules)).to.be.rejectedWith(
+      "Row 2: 'age' must be >= 0\nRow 2: 'salary' must be number"
+    );
+  });
+
+  it("throws an error when extra properties are specified while additionalProperties is set to false", async () => {
+    const parsed = await parseCsv("name,age,salary\nJohn,10,5000");
+
+    const rules = {
+      properties: {
+        age: {
+          type: "number",
+          minimum: 0,
+        },
+        salary: {
+          type: "number",
+        },
+      },
+      additionalProperties: false,
+    };
+
+    await expect(validate(parsed, rules)).to.be.rejectedWith(
+      "Row 2: property 'name' is not allowed"
+    );
+  });
 });

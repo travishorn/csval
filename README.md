@@ -14,8 +14,7 @@ Check CSV files against a set of validation rules.
 - Values from a fixed set of options
 - Regex pattern matching
 - Much more. Check the [JSON Schema
-  reference](https://json-schema.org/understanding-json-schema/reference/index.html)
-  for more information
+  reference](https://ajv.js.org/json-schema.html) for more information
 
 ## CLI Installation
 
@@ -48,8 +47,7 @@ Otherwise, it will display a success message.
 
 ### Rules file
 
-Rules files should follow the [JSON
-Schema](https://json-schema.org/understanding-json-schema/reference/index.html)
+Rules files should follow the [JSON Schema](https://ajv.js.org/json-schema.html)
 format. It describes what you should expect in each row. Here's an example.
 
 ```json
@@ -75,12 +73,20 @@ John,100000
 Jane,150000
 ```
 
+```
+The CSV file meets all validation checks.
+```
+
 This CSV file would fail.
 
 ```
 name,salary
 John,100000
 Jane,idk
+```
+
+```
+Row 3: 'salary' must be number
 ```
 
 Here's another example rules file.
@@ -142,8 +148,7 @@ Jane,150000
 ```
 
 There are many other possible rules. See the [JSON
-Schema](https://json-schema.org/understanding-json-schema/reference/index.html)
-for more information.
+Schema](https://ajv.js.org/json-schema.html) for more information.
 
 ## Programmatic API
 
@@ -156,7 +161,7 @@ npm install csval
 Use it in your project like so
 
 ```javascript
-const csval = require("csval");
+import { parseCsv, validate } from "csval";
 
 const main = async () => {
   const csvString= "name,age\nJohn,30";
@@ -169,10 +174,10 @@ const main = async () => {
     }
   };
 
-  const parsed = await csval.parseCsv(csvString);
-  const valid = await csval.validate(parsed, rules);
+  const parsed = await parseCsv(csvString);
+  const valid = await validate(parsed, rules);
 
-  // csval.validate will either throw an error or valid will be true
+  // validate will either throw an error or valid will be true
 };
 
 main();
@@ -181,18 +186,14 @@ main();
 You can also read CSV data and rules from files.
 
 ```javascript
-const csval = require("csval");
+import { readCsv, readRules, parseCsv, validate } from "csval";
 
-const main = async () => {
-  const csvString= await readCsv("path/to/file.csv");
-  const rules = await readRules("path/to/rules.json");
-  const parsed = await csval.parseCsv(csvString);
-  const valid = await csval.validate(parsed, rules);
+const csvString = await readCsv("path/to/file.csv");
+const rules = await readRules("path/to/rules.json");
+const parsed = await parseCsv(csvString);
+const valid = await validate(parsed, rules);
 
-  // csval.validate will either throw an error or valid will be true
-};
-
-main();
+// validate will either throw an error or valid will be true
 ```
 
 ## Develop
@@ -217,21 +218,15 @@ npm install
 
 ## Tests
 
-Run tests via Jest
+Run tests via Mocha
 
 ```
 npm run test
 ```
 
-View test coverage
-
-```
-npm run test:coverage
-```
-
 ## Lint
 
-Lint all JavaScript files
+Lint all JavaScript files via ESLint and Prettier
 
 ```
 npm run lint
@@ -247,7 +242,7 @@ npm run lint:fix
 
 The MIT License
 
-Copyright 2019 Travis Horn
+Copyright 2023 Travis Horn
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in

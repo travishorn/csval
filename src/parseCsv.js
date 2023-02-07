@@ -1,7 +1,12 @@
-const { parse } = require("papaparse");
+import papaparse from "papaparse";
 
-const parseCsv = async data => {
-  const parsed = parse(data, { header: true, skipEmptyLines: true });
+const { parse } = papaparse;
+
+const parseCsv = async (data) => {
+  const parsed = parse(data, {
+    header: true,
+    skipEmptyLines: true,
+  });
 
   if (parsed.errors.length > 0) {
     const errorText = parsed.errors.reduce((acc, cur, i) => {
@@ -23,4 +28,4 @@ const parseCsv = async data => {
   return parsed;
 };
 
-module.exports = parseCsv;
+export { parseCsv };

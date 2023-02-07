@@ -1,53 +1,63 @@
-const parseCsv = require("../src/parseCsv");
-const readCsv = require("../src/readCsv");
+import { dirname } from "node:path";
+import { fileURLToPath } from "node:url";
+import { expect, use } from "chai";
+import chaiAsPromised from "chai-as-promised";
+import { parseCsv } from "../src/parseCsv.js";
+import { readCsv } from "../src/readCsv.js";
 
-test("Parses a CSV string", async () => {
-  const parsed = await parseCsv("name,age\nJohn,30");
-  expect(parsed.errors.length).toBe(0);
-});
+const __dirname = dirname(fileURLToPath(import.meta.url));
 
-test("Parses a read file", async () => {
-  const data = await readCsv(`${__dirname}/../sample-data/simple.csv`);
-  const parsed = await parseCsv(data);
-  expect(parsed.errors.length).toBe(0);
-});
+use(chaiAsPromised);
 
-test("Throws an error on row with too few fields.", async () => {
-  await expect(parseCsv("name,age,salary\nJohn,30")).rejects.toThrow(
-    "Parse error: Row 2: Too few fields: expected 3 fields but parsed 2"
-  );
-});
+describe("parseCsv", () => {
+  it("parses a CSV string", async () => {
+    const parsed = await parseCsv("name,age\nJohn,30");
+    expect(parsed.errors.length).to.equal(0);
+  });
 
-test("Throws an error on row with too many fields", async () => {
-  await expect(parseCsv("name,age\nJohn,30,75000")).rejects.toThrow(
-    "Parse error: Row 2: Too many fields: expected 2 fields but parsed 3"
-  );
-});
+  it("parses a read file", async () => {
+    const data = await readCsv(`${__dirname}/../sample-data/simple.csv`);
+    const parsed = await parseCsv(data);
+    expect(parsed.errors.length).to.equal(0);
+  });
 
-test("Throws an error when delimiter cannot be detected", async () => {
-  await expect(parseCsv("")).rejects.toThrow(
-    "Parse error: Unable to auto-detect delimiting character; defaulted to ','"
-  );
+  it("throws an error on row with too few fields.", async () => {
+    await expect(parseCsv("name,age,salary\nJohn,30")).to.be.rejectedWith(
+      "Parse error: Row 2: Too few fields: expected 3 fields but parsed 2"
+    );
+  });
 
-  await expect(parseCsv("name age\nJohn 30")).rejects.toThrow(
-    "Parse error: Unable to auto-detect delimiting character; defaulted to ','"
-  );
-});
+  it("throws an error on row with too many fields", async () => {
+    await expect(parseCsv("name,age\nJohn,30,75000")).to.be.rejectedWith(
+      "Parse error: Row 2: Too many fields: expected 2 fields but parsed 3"
+    );
+  });
 
-test("Throws an error when quoted fields are malformed", async () => {
-  await expect(parseCsv('a,"b,c\nd,e,f')).rejects.toThrow(
-    "Parse error: Row 2: Quoted field unterminated"
-  );
+  it("throws an error when delimiter cannot be detected", async () => {
+    await expect(parseCsv("")).to.be.rejectedWith(
+      "Parse error: Unable to auto-detect delimiting character; defaulted to ','"
+    );
 
-  await expect(parseCsv('a,"b,"c\nd,e,f')).rejects.toThrow(
-    "Parse errors:\n - Row 2: Trailing quote on quoted field is malformed\n - Row 2: Quoted field unterminated"
-  );
+    await expect(parseCsv("name age\nJohn 30")).to.be.rejectedWith(
+      "Parse error: Unable to auto-detect delimiting character; defaulted to ','"
+    );
+  });
 
-  await expect(parseCsv('a,"b"c,d\ne,f,g')).rejects.toThrow(
-    "Parse errors:\n - Row 2: Trailing quote on quoted field is malformed\n - Row 2: Quoted field unterminated"
-  );
+  it("Throws an error when quoted fields are malformed", async () => {
+    await expect(parseCsv('a,"b,c\nd,e,f')).to.be.rejectedWith(
+      "Parse error: Row 2: Quoted field unterminated"
+    );
 
-  await expect(parseCsv('a,"b,c\nd"e,f,g')).rejects.toThrow(
-    "Parse errors:\n - Row 2: Trailing quote on quoted field is malformed\n - Row 2: Quoted field unterminated"
-  );
+    await expect(parseCsv('a,"b,"c\nd,e,f')).to.be.rejectedWith(
+      "Parse errors:\n - Row 2: Trailing quote on quoted field is malformed\n - Row 2: Quoted field unterminated"
+    );
+
+    await expect(parseCsv('a,"b"c,d\ne,f,g')).to.be.rejectedWith(
+      "Parse errors:\n - Row 2: Trailing quote on quoted field is malformed\n - Row 2: Quoted field unterminated"
+    );
+
+    await expect(parseCsv('a,"b,c\nd"e,f,g')).to.be.rejectedWith(
+      "Parse errors:\n - Row 2: Trailing quote on quoted field is malformed\n - Row 2: Quoted field unterminated"
+    );
+  });
 });

@@ -1,11 +1,7 @@
-const parseCsv = require("./parseCsv");
-const readCsv = require("./readCsv");
-const readRules = require("./readRules");
-const validate = require("./validate");
+import { parseCsv } from "./parseCsv.js";
+import { readCsv } from "./readCsv.js";
+import { readRules } from "./readRules.js";
+import { validate } from "./validate.js";
 
-module.exports = {
-  parseCsv,
-  readCsv,
-  readRules,
-  validate
-};
+export { parseCsv, readCsv, readRules, validate };
+export default { parseCsv, readCsv, readRules, validate };
