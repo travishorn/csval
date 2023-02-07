@@ -34,6 +34,21 @@ describe("validate", () => {
     expect(valid).to.equal(true);
   });
 
+  it("validates a valid CSV string with a boolean", async () => {
+    const parsed = await parseCsv("name,active\nJohn,true");
+
+    const rules = {
+      properties: {
+        active: {
+          type: "boolean",
+        },
+      },
+    };
+
+    const valid = await validate(parsed, rules);
+    expect(valid).to.equal(true);
+  });
+
   it('validates rules with the optional type:"object" property', async () => {
     const parsed = await parseCsv("name,age\nJohn,30");
 

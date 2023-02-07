@@ -1,11 +1,11 @@
 Employee ID Number,Last Name,First Name,Ethnicity,Gender,Date of Birth,Active,Administrative,Department,Location
-100028414,Smith,Nancy,White,F,4/11/1985,TRUE,FALSE,Human Resources,Baltimore
-100048265,Harris,Bernice,Black,F,6/4/1968,TRUE,FALSE,Research & Development,Chicago
-100042175,Rodriguez,Alice,Hispanic,F,3/23/1956,TRUE,TRUE,Manufacturing,Chicago
-100021733,Hockett,Heriberto,Hispanic,M,9/20/1973,FALSE,FALSE,Packaging,Baltimore
-100032005,Davis,Nicole,Multi-Racial,F,7/11/1986,TRUE,FALSE,Packaging,Chicago
-100048269,Hester,Lidia,Black,F,8/8/1979,TRUE,FALSE,Human Resources,Chicago
-100037893,Johnston,Derrick,White,M,8/13/1972,FALSE,FALSE,Research & Development,Baltimore
-100048423,Hamm,Matthew,Black,M,4/14/1965,TRUE,TRUE,Human Resources,Baltimore
-100046753,Manson,Erika,Multi-Racial,F,10/13/1991,TRUE,FALSE,Research & Development,Chicago
-100042913,Stutz,Delores,Black,F,3/15/1985,TRUE,FALSE,Human Resources,Chicago
+100028414,Smith,Nancy,White,F,4/11/1985,true,false,Human Resources,Baltimore
+100048265,Harris,Bernice,Black,F,6/4/1968,true,false,Research & Development,Chicago
+100042175,Rodriguez,Alice,Hispanic,F,3/23/1956,true,true,Manufacturing,Chicago
+100021733,Hockett,Heriberto,Hispanic,M,9/20/1973,false,false,Packaging,Baltimore
+100032005,Davis,Nicole,Multi-Racial,F,7/11/1986,true,false,Packaging,Chicago
+100048269,Hester,Lidia,Black,F,8/8/1979,true,false,Human Resources,Chicago
+100037893,Johnston,Derrick,White,M,8/13/1972,false,false,Research & Development,Baltimore
+100048423,Hamm,Matthew,Black,M,4/14/1965,true,true,Human Resources,Baltimore
+100046753,Manson,Erika,Multi-Racial,F,10/13/1991,true,false,Research & Development,Chicago
+100042913,Stutz,Delores,Black,F,3/15/1985,true,false,Human Resources,Chicago
