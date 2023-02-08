@@ -1,7 +1,5 @@
 # csval
 
-[![Build Status](https://travis-ci.org/travishorn/csval.svg?branch=master)](https://travis-ci.org/travishorn/csval)
-
 Check CSV files against a set of validation rules.
 
 ## Validation Checks
