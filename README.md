@@ -22,7 +22,7 @@ npm install --global csval
 
 ## Usage
 
-Run `csval` and give a CSV file as the first argument
+Run `csval` and give a CSV file as the first argument:
 
 ```
 csval mydata.csv
@@ -33,7 +33,7 @@ can be parsed correctly. As long as it's a valid CSV file, it will pass
 validation. The CLI will show errors if they exist. Otherwise, it will display
 a success message.
 
-Pass in a rules file to validate against the rules
+Pass in a rules file to validate against the rules:
 
 ```
 csval mydata.csv myrules.json
@@ -46,7 +46,7 @@ Otherwise, it will display a success message.
 ### Rules file
 
 Rules files should follow the [JSON Schema](https://ajv.js.org/json-schema.html)
-format. It describes what you should expect in each row. Here's an example.
+format. It describes what you should expect in each row. Here's an example:
 
 ```json
 {
@@ -63,7 +63,7 @@ Note: The `"type": "object"` line above is implied and can be left out if
 desired.
 
 The rules above say that the "salary" field on each row must be a number. This
-CSV file would pass.
+CSV file would pass:
 
 ```
 name,salary
@@ -75,7 +75,7 @@ Jane,150000
 The CSV file meets all validation checks.
 ```
 
-This CSV file would fail.
+This CSV file would fail:
 
 ```
 name,salary
@@ -87,7 +87,7 @@ Jane,idk
 Row 3: 'salary' must be number
 ```
 
-Here's another example rules file.
+Here's another example rules file:
 
 ```json
 {
@@ -100,7 +100,7 @@ Here's another example rules file.
 }
 ```
 
-This CSV file would pass.
+This CSV file would pass:
 
 ```
 name,age
@@ -108,7 +108,7 @@ John,30
 Jane,50
 ```
 
-But this one would fail.
+But this one would fail:
 
 ```
 name,age
@@ -116,7 +116,7 @@ John,30
 Jane,-10
 ```
 
-You can require certain fields, as well. Consider this rules file.
+You can require certain fields, as well. Consider this rules file:
 
 ```json
 {
@@ -129,7 +129,7 @@ You can require certain fields, as well. Consider this rules file.
 }
 ```
 
-This CSV file would pass.
+This CSV file would pass:
 
 ```
 name,age,salary
@@ -137,7 +137,7 @@ John,30,100000
 Jane,50,150000
 ```
 
-This one would fail.
+This one would fail:
 
 ```
 name,salary
@@ -150,26 +150,26 @@ Schema](https://ajv.js.org/json-schema.html) for more information.
 
 ## Programmatic API
 
-Install the library
+Install the library:
 
 ```
 npm install csval
 ```
 
-Use it in your project like so
+Use it in your project like so:
 
 ```javascript
 import { parseCsv, validate } from "csval";
 
 const main = async () => {
-  const csvString= "name,age\nJohn,30";
+  const csvString = "name,age\nJohn,30";
 
   const rules = {
     properties: {
       name: {
-        type: "string"
-      }
-    }
+        type: "string",
+      },
+    },
   };
 
   const parsed = await parseCsv(csvString);
@@ -181,7 +181,7 @@ const main = async () => {
 main();
 ```
 
-You can also read CSV data and rules from files.
+You can also read CSV data and rules from files:
 
 ```javascript
 import { readCsv, readRules, parseCsv, validate } from "csval";
@@ -196,19 +196,19 @@ const valid = await validate(parsed, rules);
 
 ## Develop
 
-Clone the repository
+Clone the repository:
 
 ```
 git clone https://github.com/travishorn/csval.git
 ```
 
-Change into the directory
+Change into the directory:
 
 ```
 cd csval
 ```
 
-Install dependencies
+Install dependencies:
 
 ```
 npm install
@@ -216,7 +216,7 @@ npm install
 
 ## Tests
 
-Run tests via Mocha
+Run tests:
 
 ```
 npm run test
@@ -224,23 +224,29 @@ npm run test
 
 ## Lint
 
-Lint all JavaScript files via ESLint and Prettier
+Lint all JavaScript files:
 
 ```
 npm run lint
 ```
 
-Automatically fix linting problems if possible
+Check types:
 
 ```
-npm run lint:fix
+npm run lint:types
+```
+
+Check code format:
+
+```
+npm run lint:format
 ```
 
 ## License
 
 The MIT License
 
-Copyright 2023 Travis Horn
+Copyright 2026 Travis Horn
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
