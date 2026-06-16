@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-import { readFile } from "fs/promises";
+import { readFile } from "node:fs/promises";
 import { program } from "commander";
 import { readCsv } from "./readCsv.js";
 import { readRules } from "./readRules.js";
@@ -8,7 +8,7 @@ import { parseCsv } from "./parseCsv.js";
 import { validate } from "./validate.js";
 
 const { version } = JSON.parse(
-  await readFile(new URL("../package.json", import.meta.url))
+  await readFile(new URL("../package.json", import.meta.url), "utf-8"),
 );
 
 program

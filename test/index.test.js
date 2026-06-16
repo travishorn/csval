@@ -1,36 +1,30 @@
-import { dirname } from "node:path";
-import { fileURLToPath } from "node:url";
-import { expect } from "chai";
+import { expect, test } from "vitest";
 import { parseCsv, readCsv, readRules, validate } from "../src/index.js";
 import csval from "../src/index.js";
 
-const __dirname = dirname(fileURLToPath(import.meta.url));
+test("parses a CSV string", async () => {
+  const parsed = await parseCsv("name,age\nJohn,30");
+  expect(parsed.errors.length).toBe(0);
+});
 
-describe("csval", () => {
-  it("parses a CSV string", async () => {
-    const parsed = await parseCsv("name,age\nJohn,30");
-    expect(parsed.errors.length).to.equal(0);
-  });
+test("reads a CSV file", async () => {
+  const data = await readCsv(`./sample-data/simple.csv`);
+  expect(data).toBe("name,age\nJohn,30");
+});
 
-  it("reads a CSV file", async () => {
-    const data = await readCsv(`${__dirname}/../sample-data/simple.csv`);
-    expect(data).to.equal("name,age\nJohn,30");
-  });
+test("reads rules from a file", async () => {
+  const rules = await readRules(`./sample-rules/simple.json`);
+  expect(typeof rules).toBe("object");
+});
 
-  it("reads rules from a file", async () => {
-    const rules = await readRules(`${__dirname}/../sample-rules/simple.json`);
-    expect(typeof rules).to.equal("object");
-  });
+test("validates a valid CSV string with no rules", async () => {
+  const parsed = await parseCsv("name,age\nJohn,30");
+  const valid = await validate(parsed);
+  expect(valid).toBe(true);
+});
 
-  it("validates a valid CSV string with no rules", async () => {
-    const parsed = await parseCsv("name,age\nJohn,30");
-    const valid = await validate(parsed);
-    expect(valid).to.equal(true);
-  });
-
-  it("exports a default object", async () => {
-    const parsed = await csval.parseCsv("name,age\nJohn,30");
-    const valid = await csval.validate(parsed);
-    expect(valid).to.equal(true);
-  });
+test("exports a default object", async () => {
+  const parsed = await csval.parseCsv("name,age\nJohn,30");
+  const valid = await csval.validate(parsed);
+  expect(valid).toBe(true);
 });

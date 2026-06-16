@@ -1,28 +1,20 @@
-import { dirname } from "node:path";
-import { fileURLToPath } from "node:url";
-import { expect, use } from "chai";
-import chaiAsPromised from "chai-as-promised";
+import { expect, test } from "vitest";
 import { readRules } from "../src/readRules.js";
 
-const __dirname = dirname(fileURLToPath(import.meta.url));
+test("reads rules from a file", async () => {
+  const rules = await readRules(`./sample-rules/simple.json`);
+  expect(rules).toBeTypeOf("object");
+});
 
-use(chaiAsPromised);
+test("throws an error on non-existent rules file", async () => {
+  await expect(readRules(`./sample-rules/non-existent.json`)).rejects.toThrow(
+    "Cannot find the specified rules file.",
+  );
+});
 
-describe("readRules", () => {
-  it("reads rules from a file", async () => {
-    const rules = await readRules(`${__dirname}/../sample-rules/simple.json`);
-    expect(rules).to.be.an("object");
-  });
-
-  it("throws an error on non-existent rules file", async () => {
-    await expect(
-      readRules(`${__dirname}/../sample-rules/non-existent.json`)
-    ).to.be.rejectedWith("Cannot find the specified rules file.");
-  });
-
-  it("throws an error when passed a non-string file path", async () => {
-    await expect(readRules(false)).to.be.rejectedWith(
-      'The "path" argument must be of type string or an instance of Buffer or URL. Received type boolean (false)'
-    );
-  });
+test("throws an error when passed a non-string file path", async () => {
+  // @ts-expect-error
+  await expect(readRules(false)).rejects.toThrow(
+    'The "path" argument must be of type string or an instance of Buffer or URL. Received type boolean (false)',
+  );
 });

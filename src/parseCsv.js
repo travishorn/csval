@@ -2,6 +2,15 @@ import papaparse from "papaparse";
 
 const { parse } = papaparse;
 
+/**
+ * Parses CSV data into an array of objects, where each object represents a row
+ * with key-value pairs corresponding to column headers and cell values.
+ *
+ * @template [T=Record<string, unknown>]
+ * @param {string} data - The CSV data as a string
+ * @returns {Promise<import("papaparse").ParseResult<T>>} The parsed CSV data
+ * @throws {Error} If there are parsing errors, with details about the errors
+ */
 const parseCsv = async (data) => {
   const parsed = parse(data, {
     header: true,

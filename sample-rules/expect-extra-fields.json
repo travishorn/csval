@@ -2,7 +2,5 @@
   "properties": {
     "salary": "number"
   },
-  "required": [
-    "salary"
-  ]
+  "required": ["salary"]
 }

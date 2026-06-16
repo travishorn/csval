@@ -28,10 +28,7 @@
     },
     "Gender": {
       "type": "string",
-      "enum": [
-        "F",
-        "M"
-      ]
+      "enum": ["F", "M"]
     },
     "Date of Birth": {
       "type": "string",
