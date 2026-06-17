@@ -5,12 +5,26 @@ import { readCsv } from "../src/readCsv.js";
 test("parses a CSV string", async () => {
   const parsed = await parseCsv("name,age\nJohn,30");
   expect(parsed.errors.length).toBe(0);
+  expect(parsed.data).toEqual([{ name: "John", age: "30" }]);
+});
+
+test("parses a CSV string with changed config", async () => {
+  const parsed = await parseCsv("John,30", { header: false });
+  expect(parsed.errors.length).toBe(0);
+  expect(parsed.data).toEqual([["John", "30"]]);
+});
+
+test("parses a CSV string with custom config", async () => {
+  const parsed = await parseCsv("name,age\nJohn,30", { dynamicTyping: true });
+  expect(parsed.errors.length).toBe(0);
+  expect(parsed.data).toEqual([{ name: "John", age: 30 }]);
 });
 
 test("parses a read file", async () => {
   const data = await readCsv(`./sample-data/simple.csv`);
   const parsed = await parseCsv(data);
   expect(parsed.errors.length).toBe(0);
+  expect(parsed.data).toEqual([{ name: "John", age: "30" }]);
 });
 
 test("throws an error on row with too few fields.", async () => {

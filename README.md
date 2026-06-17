@@ -161,24 +161,43 @@ Use it in your project like so:
 ```javascript
 import { parseCsv, validate } from "csval";
 
-const main = async () => {
-  const csvString = "name,age\nJohn,30";
+const csvString = "name,age\nJohn,30";
 
-  const rules = {
-    properties: {
-      name: {
-        type: "string",
-      },
+const rules = {
+  properties: {
+    name: {
+      type: "string",
     },
-  };
-
-  const parsed = await parseCsv(csvString);
-  const valid = await validate(parsed, rules);
-
-  // validate will either throw an error or valid will be true
+  },
 };
 
-main();
+const parsed = await parseCsv(csvString);
+const valid = await validate(parsed, rules);
+
+// validate will either throw an error or `valid` will be `true`.
+```
+
+You can pass a custom configuration to the parser:
+
+```javascript
+import { parseCsv, validate } from "csval";
+
+const csvString = "name|age\nJohn|30";
+
+const parserConfig = { delimiter: "|" };
+
+const rules = {
+  properties: {
+    name: {
+      type: "string",
+    },
+  },
+};
+
+const parsed = await parseCsv(csvString, parserConfig);
+const valid = await validate(parsed, rules);
+
+// validate will either throw an error or `valid` will be `true`.
 ```
 
 You can also read CSV data and rules from files:
@@ -191,7 +210,7 @@ const rules = await readRules("path/to/rules.json");
 const parsed = await parseCsv(csvString);
 const valid = await validate(parsed, rules);
 
-// validate will either throw an error or valid will be true
+// validate will either throw an error or `valid` will be `true`.
 ```
 
 ## Develop
