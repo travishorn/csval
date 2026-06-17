@@ -17,7 +17,7 @@ const DEFAULT_CONFIG = {
  * @returns {Promise<import("papaparse").ParseResult<T>>} The parsed CSV data
  * @throws {Error} If there are parsing errors, with details about the errors
  */
-const parseCsv = async (data, config = {}) => {
+export async function parseCsv(data, config = {}) {
   const mergedConfig = { ...DEFAULT_CONFIG, ...config };
 
   const parsed = parse(data, mergedConfig);
@@ -40,6 +40,4 @@ const parseCsv = async (data, config = {}) => {
   }
 
   return parsed;
-};
-
-export { parseCsv };
+}

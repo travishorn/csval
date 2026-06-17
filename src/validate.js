@@ -11,7 +11,7 @@ const ajv = new Ajv.default({ allErrors: true, coerceTypes: true });
  * @returns {Promise<boolean>} True if the data is valid, otherwise throws an error
  * @throws {Error} If validation fails, with details of the errors
  */
-const validate = async (parsed, rules = {}) => {
+export async function validate(parsed, rules = {}) {
   /** @type {string[]} */
   const errors = [];
   const schema = Object.assign({ type: "object" }, rules);
@@ -48,6 +48,4 @@ const validate = async (parsed, rules = {}) => {
   if (errors.length > 0) throw new Error(`${errors.join("\n")}`);
 
   return true;
-};
-
-export { validate };
+}

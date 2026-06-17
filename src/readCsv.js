@@ -8,7 +8,7 @@ import { readFile } from "node:fs/promises";
  * @returns {Promise<string>} The contents of the CSV file as a string
  * @throws {Error} If the file cannot be found or read, with details about the error
  */
-const readCsv = async (filePath) => {
+export async function readCsv(filePath) {
   try {
     const data = await readFile(filePath);
     return data.toString();
@@ -21,6 +21,4 @@ const readCsv = async (filePath) => {
 
     throw err;
   }
-};
-
-export { readCsv };
+}

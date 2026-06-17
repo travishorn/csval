@@ -6,7 +6,7 @@ import { readFile } from "node:fs/promises";
  * @returns {Promise<string>} A promise that resolves to the parsed JSON object
  * @throws {Error} If the file cannot be found or read, or if the JSON is invalid
  */
-const readRules = async (filePath) => {
+export async function readRules(filePath) {
   try {
     const data = await readFile(filePath);
     return JSON.parse(data.toString());
@@ -19,6 +19,4 @@ const readRules = async (filePath) => {
 
     throw err;
   }
-};
-
-export { readRules };
+}
