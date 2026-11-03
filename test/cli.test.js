@@ -12,7 +12,7 @@ async function cli(args) {
   return new Promise((resolve) => {
     exec(command, (error, stdout, stderr) => {
       resolve({
-        code: error?.code ? error.code : 0,
+        code: typeof error?.code === "number" ? error.code : 0,
         error,
         stdout,
         stderr,
